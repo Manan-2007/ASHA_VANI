@@ -1,0 +1,82 @@
+# ============================================================
+# ASHA-VANI — Oumi LoRA Training Configuration
+# Optimised for: Kaggle P100 (16GB VRAM)
+# Also works on: Colab T4 (reduce batch_size to 2 if OOM)
+# ============================================================
+
+model:
+  name_or_path: Qwen/Qwen2.5-3B-Instruct
+  torch_dtype: bfloat16            # P100 supports bfloat16; change to float16 for T4
+  trust_remote_code: true
+
+peft:
+  type: lora
+  r: 8                             # LoRA rank — sweet spot for 3B model
+  lora_alpha: 32                   # scaling factor (alpha/r = 4 = standard multiplier)
+  lora_dropout: 0.05
+  target_modules:                  # which attention layers to adapt
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+  bias: none
+  task_type: CAUSAL_LM
+
+data:
+  # Path on Kaggle: upload golden_100.jsonl as a dataset, reference here
+  dataset_name: /kaggle/input/asha-vani-dataset/golden_100.jsonl
+  dataset_type: sft                # supervised fine-tuning
+  # On Mac (local dev with mini-dataset):
+  # dataset_name: ./data/golden_100.jsonl
+
+training:
+  trainer: sft
+  output_dir: /kaggle/working/asha_vani_lora   # Kaggle output (persists after session)
+  # output_dir: ./adapters/asha_vani_lora      # local Mac path
+
+  # Core training params
+  num_train_epochs: 3              # 3 epochs on 100 pairs = ~300 steps
+  per_device_train_batch_size: 4   # P100 16GB handles 4 easily; drop to 2 on T4
+  gradient_accumulation_steps: 4   # effective batch = 16
+  learning_rate: 2.0e-4
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.05
+
+  # Precision
+  bf16: true                       # change to fp16: true on T4 (no bfloat16)
+  # fp16: true                     # uncomment for T4
+
+  # Memory optimisation
+  gradient_checkpointing: true     # halves VRAM at cost of ~20% speed
+  optim: paged_adamw_8bit          # 8-bit Adam — saves ~2GB VRAM vs standard Adam
+
+  # Logging & saving
+  logging_steps: 10
+  save_steps: 100
+  save_total_limit: 2              # keep only last 2 checkpoints
+  evaluation_strategy: "no"        # no eval set — all 100 pairs are training data
+
+  # Sequence length — keep short for voice agent (responses are <40 words)
+  max_seq_length: 512
+
+  # Reproducibility
+  seed: 42
+
+  # Adapter export (safetensors format — smaller and safer than pytorch bin)
+  save_safetensors: true
+
+# ============================================================
+# HOW TO RUN ON KAGGLE:
+# 1. Upload this file and golden_100.jsonl to Kaggle
+# 2. In a Kaggle notebook cell:
+#    !pip install oumi
+#    !oumi train -c train.yaml
+# 3. Adapter saves to /kaggle/working/asha_vani_lora/
+# 4. Download adapter_model.safetensors + adapter_config.json
+#
+# HOW TO RUN LOCALLY (Mac, mini-dataset dry run):
+# 1. Change dataset_name and output_dir to local paths (see comments above)
+# 2. Change per_device_train_batch_size to 1
+# 3. Add max_steps: 20  (just to verify pipeline works)
+# 4. conda activate asha-vani && oumi train -c train.yaml
+# ============================================================
