@@ -1,0 +1,46 @@
+Section 1: Postpartum Hemorrhage (PPH) - Delivery ke baad bahut khoon aana
+PPH ek emergency hai jisme delivery ke baad bahut zyada khoon beh raha hai.
+Immediate Action: 108 ambulance ko turant call karo. Bilkul der mat karo.
+Intervention: Uterus (pet ke nichle hisse) par hatheli se circular (gol-gol) fundal massage karo jab tak uterus cricket ball jaisa sakht na ho jaye.
+Restrictions: Andar se clots (khoon ke thakke) manually mat nikaalo. Maa ko shock se bachane ke liye garam kambal se dhako. Maa ko warm water bath mat do.
+
+Section 2: Neonatal Asphyxia - Baby saans nahi le raha ya ro nahi raha
+Agar paida hone ke baad baby saans nahi le raha toh yeh asphyxia hai.
+Immediate Action: Baby ko turant saaf aur garam kapde se poncho. Baby ki peeth ragdo aur talwon ko thapthapao.
+Airway: Munh aur naak saaf karo.
+Emergency: Agar 1 minute mein baby saans na le toh turant 108 call karke hospital le jao.
+Restrictions: Baby ko ulta mat latkao. Chest compressions mat karo. Baby ko nahlao mat.
+
+Section 3: Pediatric Febrile Seizures - Bukhar aur jhatke aana
+Jab bachche ko tez bukhar ke karan jhatke aa rahe hain.
+Immediate Action: Bachche ko zameen par ek side (karwat) par lita do taaki wo thook ya ulti na nigle.
+Safety: Gale ke paas se kapde dheele karo. Munh mein kuch bhi mat daalna — chammach, pani, ungli bilkul nahi.
+Emergency: Agar jhatke 5 minute se zyada chalein toh turant 108 call karo. Jhatke rukne par bhi PHC le jao.
+Restrictions: Bachche ko pakad kar rokne ki koshish mat karo. Joota ya pyaj mat sunghao.
+
+Section 4: Neonatal Hypothermia - Baby thanda pad gaya
+Jab baby ka tapman 35.5 degree Celsius se kam ho jaye aur sharir thanda ho.
+Immediate Action: Turant KMC (Kangaroo Mother Care) shuru karo. Nange baby ko maa ki chhati par skin-to-skin contact mein rakho. Kapde ya blanket se dhako.
+Warmth: Maa aur baby dono ko garam kambal se dhako. Baby ko topi pehnao. Kamra garam rakho, pankha band karo.
+Emergency: Agar baby sust (limp) hai ya doodh nahi pee raha toh 108 call karke SNCU le jao.
+Restrictions: Baby ko heater ke paas mat rakho. Thande baby ko warm water mein nahlao mat. Baby ko maa se alag mat rakho.
+
+Section 5: Out of Scope - ASHA worker ke bahar ki queries
+Agar koi query ASHA worker ki training aur NHM protocols ke bahar ho — jaise cancer treatment, diabetes insulin dose, surgery, X-ray report padhna, prescription likhna, ya koi bhi specialist doctor ka kaam — toh ASHA worker ko yeh jawab dena chahiye: Mujhe iski jaankari nahi hai. Kripya turant PHC jayein ya 108 par call karein.
+
+
+
+Section 6: HBNC (Home-Based Newborn Care) - Ghar par navjat ki dekhbhal
+HBNC ka maqsad hai ki janm ke pehle 42 dinon mein baby aur maa ki sahi jaanch ho.
+•	Visits Schedule: Sanyaas (Institutional) delivery ke liye visits—Day 3, 7, 14, 21, 28, aur 42. Ghar ki delivery ke liye Day 1 ko bhi visit karo.
+•	Breastfeeding: Maa ko samjhao ki pehle 6 mahine sirf maa ka doodh dein. Ghutti, honey, ya pani bilkul nahi dena. Latching check karo (baby ka munh pura khula ho).
+•	Cord Care: Naal (cord) ko saaf aur sookha rakho. Us par tel, haldi ya powder mat lagao.
+•	Danger Signs identifying: Agar baby doodh nahi pee raha, sust hai, ya sharir par peela-pan (jaundice) hai, toh turant PHC refer karo.
+•	Restrictions: Baby ko nanga mat rakho. Roz-roz mat nahlao (pehla nahlaana 48 ghante baad).
+Section 7: IMNCI (Integrated Management of Neonatal & Childhood Illness) - Beemar bachche ka prathmik upchar
+IMNCI protocol bachchon ki aam bimariyon (Diarrhea, Pneumonia, Fever) ko manage karne ke liye hai.
+•	Pneumonia Screening: Bachche ki saans gino. Agar saans tez hai (2 mahine se kam: 60+, 1 saal tak: 50+, 5 saal tak: 40+) aur Pasli Chal rahi hai (chest indrawing), toh yeh pneumonia hai. Turant 108 call karo.
+•	Diarrhea (Dast): Agar dast ho rahe hain toh ORS ka ghol aur Zinc ki goli (14 din tak) dena shuru karo. Agar bachche ki aankhein dhas gayi hain ya wo bahut pyaasa hai, toh dehydration hai.
+•	Malnutrition: Bachche ka wajan growth chart par dekho. Agar Lal Zone mein hai (SAM - Severe Acute Malnutrition), toh turant NRC (Nutritional Rehabilitation Center) refer karo.
+•	Anemia: Hatheli aur aankhon ki safedi check karo. Agar bahut safed (pale) lage, toh Iron syrup/tablets shuru karwao aur diet par dhyan do.
+•	Restrictions: Diarrhea mein doodh pilana band mat karo. Pneumonia mein ghar par wait mat karo, turant refer karo.

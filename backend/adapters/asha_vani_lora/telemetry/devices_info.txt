@@ -1,0 +1,3 @@
+CPU cores: 4 CUDA devices: 2
+device(0)='Tesla T4' Capability: (7, 5) Memory: [Total: 14.56GiB Free: 14.36GiB Allocated: 0.0GiB Cached: 0.0GiB]
+device(1)='Tesla T4' Capability: (7, 5) Memory: [Total: 14.56GiB Free: 14.46GiB Allocated: 0.0GiB Cached: 0.0GiB]
