@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/* ============================================
+   ASHA VANI — Design System
+   ============================================ */
+
+@theme {
+  /* ---- Color Palette ---- */
+  --color-background: #fdf9f0;
+  --color-surface: #fdf9f0;
+  --color-surface-low: #f7f3ea;
+  --color-surface-container: #f1eee5;
+  --color-surface-high: #ece8df;
+  --color-surface-highest: #e6e2d9;
+  --color-surface-lowest: #ffffff;
+
+  --color-primary: #735a36;
+  --color-primary-dim: #5f4d3a;
+  --color-primary-container: #c8a97e;
+  --color-primary-fixed: #ffddb0;
+  --color-primary-fixed-dim: #e2c195;
+
+  --color-secondary: #6a5c4b;
+  --color-secondary-container: #f2e0c9;
+  --color-secondary-fixed-dim: #d6c4ae;
+
+  --color-tertiary: #505f77;
+  --color-tertiary-container: #9fafca;
+
+  --color-on-surface: #1c1c16;
+  --color-on-surface-variant: #4e453b;
+  --color-on-background: #1c1c16;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #533e1c;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #706250;
+
+  --color-outline: #7f766a;
+  --color-outline-variant: #d1c5b7;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+
+  --color-inverse-surface: #31302b;
+  --color-inverse-on-surface: #f4f0e7;
+
+  /* ---- Font Families ---- */
+  --font-headline: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-label: "Inter", sans-serif;
+
+  /* ---- Border Radius ---- */
+  --radius-DEFAULT: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .headline {
+  font-family: var(--font-headline);
+}
+
+::selection {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+/* ============================================
+   Material Symbols
+   ============================================ */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ============================================
+   Neumorphic Effects
+   ============================================ */
+.neumorphic-shadow {
+  box-shadow: 10px 10px 20px #e0e0da, -10px -10px 20px #ffffff;
+}
+
+.neumorphic-inset {
+  box-shadow: inset 4px 4px 8px #d1d1ca, inset -4px -4px 8px #ffffff;
+}
+
+.sunken-shadow {
+  box-shadow: 0 20px 40px rgba(28, 28, 22, 0.06);
+}
+
+.soft-inset {
+  box-shadow: inset 0 2px 4px rgba(78, 69, 59, 0.05);
+}
+
+/* ============================================
+   Glass Panel
+   ============================================ */
+.glass-panel {
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+
+/* ============================================
+   Gradients
+   ============================================ */
+.primary-gradient {
+  background: linear-gradient(135deg, #735a36 0%, #c8a97e 100%);
+}
+
+.editorial-gradient {
+  background: linear-gradient(135deg, #f0e0d3 0%, #fdf9f0 100%);
+}
+
+/* ============================================
+   Waveform Animation
+   ============================================ */
+.waveform-bar {
+  width: 4px;
+  background-color: var(--color-primary-container);
+  border-radius: 9999px;
+  animation: waveform-height 1.2s ease-in-out infinite;
+}
+
+@keyframes waveform-height {
+  0%, 100% { height: 12px; }
+  50% { height: 32px; }
+}
+
+/* ============================================
+   Mic Pulse
+   ============================================ */
+.mic-ripple {
+  animation: mic-ripple-anim 3s infinite;
+}
+
+@keyframes mic-ripple-anim {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* ============================================
+   Voice Wave Bars
+   ============================================ */
+.voice-wave {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+}
+
+.wave-bar {
+  width: 3px;
+  background: var(--color-primary);
+  border-radius: 9999px;
+  opacity: 0.6;
+}
+
+/* ============================================
+   Perspective Layout (Dashboard)
+   ============================================ */
+.perspective-layout {
+  perspective: 1200px;
+}
+
+.angled-canvas {
+  transform: rotateX(2deg) rotateY(-1deg);
+}
+
+/* ============================================
+   Hero Gradient
+   ============================================ */
+.hero-gradient {
+  background: linear-gradient(135deg, rgba(119, 87, 77, 0.03) 0%, rgba(255, 219, 208, 0.08) 100%);
+}
