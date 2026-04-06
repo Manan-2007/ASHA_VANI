@@ -2,8 +2,10 @@
 main.py — ASHA-VANI FastAPI Backend
 Mac MPS Edition — fixed infer() call signature throughout
 """
-
 import os, sys, torch
+import subprocess
+import tempfile
+import base64
 os.environ.setdefault('PYTORCH_ENABLE_MPS_FALLBACK', '1')
 sys.path.insert(0, '.')
 
@@ -114,18 +116,40 @@ def query(q: Query):
 async def transcribe_and_query(audio: UploadFile = File(...)):
     """
     Receives audio/webm blob from React VoiceOrb (MediaRecorder).
-    1. Transcribes audio bytes → Hinglish text
-    2. Runs infer() → Hinglish response
-    3. Returns both transcript and response as JSON
+    1. Converts WebM to raw 16kHz PCM using FFmpeg
+    2. Transcribes audio bytes → Hinglish text
+    3. Runs infer() → Hinglish response
+    4. Runs speak() → encodes WAV bytes to Base64
     """
-    audio_bytes = await audio.read()
+    webm_bytes = await audio.read()
 
-    # Step 1: STT
-    text = _transcribe(audio_bytes) if _transcribe else ''
+    # Step 1: Convert WebM to 16kHz raw PCM using FFmpeg
+    with tempfile.NamedTemporaryFile(suffix='.webm', delete=False) as f:
+        f.write(webm_bytes)
+        tmp_in = f.name
+        
+    tmp_out = tmp_in + '.raw'
+    
+    # Run FFmpeg conversion quietly
+    subprocess.run([
+        'ffmpeg', '-y', '-i', tmp_in, 
+        '-f', 's16le', '-acodec', 'pcm_s16le', 
+        '-ar', '16000', '-ac', '1', tmp_out
+    ], capture_output=True)
+    
+    with open(tmp_out, 'rb') as f:
+        pcm_bytes = f.read()
+        
+    # Clean up temp files
+    os.remove(tmp_in)
+    os.remove(tmp_out)
+
+    # Step 2: STT (using clean PCM bytes)
+    text = _transcribe(pcm_bytes) if _transcribe else ''
     if not text.strip():
         text = 'Audio unclear — please try again.'
 
-    # Step 2: SLM inference — ALWAYS pass model, tok, rag
+    # Step 3: SLM inference
     if _model is not None and _infer is not None:
         response = _infer(text, _model, _tok, _rag)
     elif _infer is not None:
@@ -133,8 +157,17 @@ async def transcribe_and_query(audio: UploadFile = File(...)):
     else:
         response = 'Models not loaded yet.'
 
-    return {'transcript': text, 'response': response}
+    # Step 4: Generate TTS Audio and encode to Base64
+    audio_b64 = ""
+    if _speak:
+        audio_wav_bytes = _speak(response)
+        audio_b64 = base64.b64encode(audio_wav_bytes).decode('utf-8')
 
+    return {
+        'transcript': text, 
+        'response': response, 
+        'audio_b64': audio_b64
+    }
 
 @app.post('/query_audio')
 async def query_audio(q: Query):

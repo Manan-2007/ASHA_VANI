@@ -203,9 +203,7 @@ def infer(
         # Layer 3: RAG
         context = rag.retrieve(prompt, k=2)
 
-        # Layer 4: System prompt with few-shot Hinglish examples
-        # Few-shot examples are the most reliable way to enforce Hinglish
-        # on the base model when the LoRA adapter is not loaded.
+	# Layer 4: System prompt with few-shot Hinglish examples
         if urgency == 'high':
             system = (
                 'Tu ek ASHA worker assistant hai. '
@@ -217,7 +215,7 @@ def infer(
                 f'--- NHM GUIDELINES ---\n{context}\n----------------------\n'
                 f'Agar jawab nahi pata: "{IDK_PHRASE}"'
             )
-            max_new_tokens = 45
+            max_new_tokens = 75 # BUMPED: Gives enough room to finish the thought
 
         else:
             system = (
@@ -229,17 +227,7 @@ def infer(
                 f'--- NHM GUIDELINES ---\n{context}\n----------------------\n'
                 f'Agar jawab nahi pata: "{IDK_PHRASE}"'
             )
-
-        messages = [
-            {'role': 'system', 'content': system},
-            {'role': 'user',   'content': prompt},
-        ]
-
-        text   = tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-        inputs = tokenizer(text, return_tensors='pt').to(model.device)
-
+            max_new_tokens = 75 # BUMPED: Match emergency limit for consistency
         # Layer 5: Greedy decoding — fastest on MPS, no warnings
         with torch.no_grad():
             output_ids = model.generate(

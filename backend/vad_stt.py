@@ -11,13 +11,24 @@ vad_model, vad_utils = torch.hub.load('snakers4/silero-vad', 'silero_vad', force
 
 # Faster-Whisper — CPU on Mac (GPU not needed, still fast enough)
 # Use 'base' for best Hinglish accuracy. 'tiny' if latency > 200ms.
-asr = WhisperModel('base', device='cpu', compute_type='int8')
+asr = WhisperModel('small', device='cpu', compute_type='int8')
 
 def transcribe(audio_bytes: bytes) -> str:
-    """CONTRACT: bytes (16kHz mono int16 PCM) -> Hinglish text. Never raises."""
+    """CONTRACT: bytes (16kHz mono int16 PCM) -> Hinglish text."""
     try:
         audio = np.frombuffer(audio_bytes, dtype=np.int16).astype(np.float32) / 32768.0
-        segments, _ = asr.transcribe(audio, language='hi', beam_size=5)
+        
+        # Give Whisper a "cheat sheet" of ASHA vocabulary
+        asha_context = "Didi, bache ko jhatke aa rahe hain, bukhar, khoon, bleeding, saans nahi, behosh, PHC, 108."
+        
+        # Pass the initial_prompt
+        segments, _ = asr.transcribe(
+            audio, 
+            language='hi', 
+            beam_size=5,
+            initial_prompt=asha_context,
+            condition_on_previous_text=False # Prevents hallucination loops
+        )
         return ' '.join(s.text for s in segments).strip()
     except Exception as e:
         print(f'[STT ERROR] {e}')

@@ -22,7 +22,10 @@ export function useVoiceRecorder() {
       const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
         ? 'audio/webm;codecs=opus' : 'audio/webm';
 
-      mediaRef.current = new MediaRecorder(stream, { mimeType });
+      mediaRef.current = new MediaRecorder(stream, { 
+        mimeType: mimeType,
+        audioBitsPerSecond: 128000 
+      });
       mediaRef.current.ondataavailable = (e) => {
         if (e.data.size > 0) chunksRef.current.push(e.data);
       };
@@ -34,7 +37,7 @@ export function useVoiceRecorder() {
     }
   }, []);
 
-  const stopRecording = useCallback(async () => {
+const stopRecording = useCallback(async () => {
     if (!mediaRef.current || mediaRef.current.state === 'inactive') return;
     return new Promise((resolve) => {
       mediaRef.current.onstop = async () => {
@@ -47,6 +50,14 @@ export function useVoiceRecorder() {
           setResponse(data.response || '');
           setTranscript(data.transcript || '');
           setLatency(Math.round(performance.now() - t0));
+          
+          // --- NEW LINES START HERE ---
+          if (data.audio_b64) {
+            const snd = new Audio("data:audio/wav;base64," + data.audio_b64);
+            snd.play();
+          }
+          // --- NEW LINES END HERE ---
+
         } catch (e) {
           setError(e.message);
         } finally {
@@ -58,6 +69,5 @@ export function useVoiceRecorder() {
       setRecording(false);
     });
   }, []);
-
   return { recording, transcript, response, latency, error, loading, startRecording, stopRecording };
 }

@@ -10,9 +10,9 @@ def speak(text: str) -> bytes:
     try:
         result = subprocess.run(
             [PIPER_BIN, '--model', VOICE_MODEL,
-             '--config', VOICE_JSON, '--output-raw'],
+             '--config', VOICE_JSON, '--output_file', '-'],
             input=text.encode('utf-8'),
-            capture_output=True, timeout=3.0
+            capture_output=True, timeout=10.0
         )
         return result.stdout
     except Exception as e:
